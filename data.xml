@@ -1,0 +1,10 @@
+<items>
+    <item>
+        <name>Item 1</name>
+        <description>This is the first item</description>
+    </item>
+    <item>
+        <name>Item 2</name>
+        <description>This is the second item</description>
+    </item>
+</items>

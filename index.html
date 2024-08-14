@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML to HTML</title>
+</head>
+<body>
+
+<h1>Items List</h1>
+<div id="items-container"></div>
+
+<script>
+    // Function to load XML
+    function loadXMLDoc(url) {
+        return fetch(url)
+            .then(response => response.text())
+            .then(str => new window.DOMParser().parseFromString(str, "text/xml"));
+    }
+
+    // Function to display XML data in HTML
+    function displayXMLData() {
+        let xmlURL = 'https://yourusername.github.io/xml-to-html/data.xml'; // Replace with your actual GitHub Pages URL
+        loadXMLDoc(xmlURL).then(xmlDoc => {
+            let items = xmlDoc.getElementsByTagName("item"); // Get all <item> elements
+            let container = document.getElementById("items-container");
+
+            for (let i = 0; i < items.length; i++) {
+                // Create HTML elements to display XML data
+                let itemDiv = document.createElement("div");
+                let itemName = document.createElement("h2");
+                let itemDescription = document.createElement("p");
+
+                // Get XML data
+                itemName.textContent = items[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                itemDescription.textContent = items[i].getElementsByTagName("description")[0].childNodes[0].nodeValue;
+
+                // Append data to the container
+                itemDiv.appendChild(itemName);
+                itemDiv.appendChild(itemDescription);
+                container.appendChild(itemDiv);
+            }
+        });
+    }
+
+    // Call the function to display the data when the page loads
+    window.onload = displayXMLData;
+</script>
+
+</body>
+</html>
